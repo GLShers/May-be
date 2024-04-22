@@ -30,10 +30,31 @@ int main()
         cout << "Age: " << arr[i].age << "\n";
         cout << endl;
     }
-    cout<<"--------------------------------------------------------------------------------------------------------------------\n";
-    for(int i=0; i<size;i++)
-        if (((arr[i].name[0]=='C') or (arr[i].name[0]=='c')) and (arr[i].age>=25))
-            cout<<"good";
-        else continue;
-    cout<<arr[0].name[0];
+    cout << "--------------------------------------------------------------------------------------------------------------------\n";
+    person *arr2 = new person[size];
+    for (int i = 0; i < size; i++)
+    {
+        arr2[i].name = new char[25];
+    }
+    int j;
+    int o = 0;
+    for (j = 0; j < size; j++)
+    {
+        if (((arr[j].name[0] == 'C') or (arr[j].name[0] == 'c')) and (arr[j].age >= 25))
+        {
+            arr2[j].name = arr[j].name;
+            arr2[j].age = arr[j].age;
+            o = +1;
+        }
+
+        else
+            continue;
+    }
+    for (int i = 0; i < o; i++)
+    {
+        cout << "Person " << i + 1 << ":\n";
+        cout << "Name: " << arr2[i].name << "\n";
+        cout << "Age: " << arr2[i].age << "\n";
+        cout << endl;
+    }
 }
