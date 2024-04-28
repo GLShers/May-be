@@ -83,8 +83,8 @@ void LinkedList::Assert(char *new_elem)
         if (typeid(n->data).name() == typeid(char *).name())
         {
             Node *em = new Node(new_elem, n->next);
-            em->data = new char[strlen(new_elem) + 1]; // Выделяем память для хранения данных
-            strcpy(em->data, new_elem);                // Копируем данные
+            em->data = new char[strlen(new_elem) + 1];
+            strcpy(em->data, new_elem);
             n->next = em;
             Size++;
             break;
@@ -105,6 +105,7 @@ struct TwoNode
         this->data = data;
     }
 };
+
 class TwoListNode
 {
 public:
@@ -112,6 +113,8 @@ public:
     void push_front(int data);
     void print();
     void del_even_elen();
+    void FreMem();
+
     int size = 0;
     TwoNode *head = nullptr;
 };
@@ -174,6 +177,7 @@ void TwoListNode::del_even_elen()
                 delete n;
                 n = m->next;
             }
+            size--;
         }
         else
         {
@@ -182,6 +186,18 @@ void TwoListNode::del_even_elen()
         }
     }
     cout << "Enum Elements have be delete, new TwoLInkedList";
+}
+
+void TwoListNode::FreMem()
+{
+    TwoNode *n = head;
+    while (n != nullptr)
+    {
+        n = head->next;
+        delete head;
+        head = n;
+    }
+    cout << "TWoLInkedList is clear!\n";
 }
 
 int main()
@@ -205,8 +221,10 @@ int main()
     lk.print();
     lk.del_even_elen();
     lk.print();
+    lk.FreMem();
+    lk.print();
+
     cout << "---------------------------------------------------------------------------------------------------\n";
-    
 
     return 0;
 }
