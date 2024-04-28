@@ -43,9 +43,9 @@ int main()
     {
         if ((arr[j].name[0] == 'C') and (arr[j].age >= 25))
 {
-            arr2[o].name = arr[j].name; // Используем o, а не j в качестве индекса для arr2
+            arr2[o].name = arr[j].name;
             arr2[o].age = arr[j].age;
-            o++; // Увеличиваем o
+            o++; 
 }
 
         else
