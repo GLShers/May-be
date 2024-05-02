@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 #include <cstring>
 using namespace std;
 struct Node
@@ -200,6 +201,100 @@ void TwoListNode::FreMem()
     cout << "TWoLInkedList is clear!\n";
 }
 
+class WildYeees
+{
+private:
+    char *data;
+public:
+    WildYeees *Right = nullptr;
+    WildYeees *Left = nullptr;
+
+    WildYeees(const char *data) {
+        this->data = new char[strlen(data) + 1];
+        strcpy(this->data, data);
+    }
+
+    ~WildYeees() {
+        delete[] data;
+    }
+
+    const char* getData() const {
+        return data;
+    }
+};
+
+class Tree
+{
+private:
+    int size = 0;
+public:
+    WildYeees *head = nullptr;
+    Tree(const char *data);
+    void Add(const char *data);
+    void BFS();
+};
+
+Tree::Tree(const char *data) {
+    head = new WildYeees(data);
+    std::cout << "Tree root created!\n";
+    size++;
+}
+
+void Tree::Add(const char *data) {
+    WildYeees *n = head;
+    WildYeees *o = new WildYeees(data);
+    while (true) {
+        if (strcmp(n->getData(), data) < 0) {
+            if (n->Right == nullptr) {
+                n->Right = o;
+                break;
+            }
+            else {
+                n = n->Right;
+            }
+        }
+        else if (strcmp(n->getData(), data) > 0) {
+            if (n->Left == nullptr) {
+                n->Left = o;
+                break;
+            }
+            else {
+                n = n->Left;
+            }
+        }
+        else {
+            delete o;
+            return;
+        }
+    }
+    size++;
+}
+
+void Tree::BFS() {
+    if (head == nullptr)
+        return;
+
+    std::queue<WildYeees*> q;
+    q.push(head);
+
+    while (!q.empty()) {
+        WildYeees* current = q.front();
+        q.pop();
+
+        std::cout << current->getData() << " ";
+
+        if (current->Left != nullptr)
+            q.push(current->Left);
+
+        if (current->Right != nullptr)
+            q.push(current->Right);
+    }
+}
+
+
+
+
+
 int main()
 {
     LinkedList ls;
@@ -225,6 +320,13 @@ int main()
     lk.print();
 
     cout << "---------------------------------------------------------------------------------------------------\n";
+    Tree tree("50");
+
+    tree.Add("40");
+    tree.Add("30");
+    tree.Add("60");
+    tree.Add("70");
+    tree.BFS();
 
     return 0;
 }
